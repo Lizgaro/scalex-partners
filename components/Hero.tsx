@@ -7,10 +7,11 @@ export const Hero: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   useEffect(() => {
-    // Track hero view
     trackEvent(ANALYTICS_EVENTS.SCROLL_DEPTH, { label: 'hero_view', value: 0 });
 
-    // --- Canvas Animation: Neural Network ---
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -126,30 +127,26 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden selection:bg-brand-accent selection:text-white">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden selection:bg-brand-accent selection:text-white pt-20 sm:pt-0">
       
-      {/* Canvas Background */}
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40" />
+      <canvas ref={canvasRef} className="absolute inset-0 z-0 opacity-40 hidden md:block" />
       
-      {/* Gradient Spotlights */}
-      <div className="absolute top-[-20%] left-[20%] w-[600px] h-[600px] bg-brand-primary/20 rounded-full blur-[120px] animate-pulse-slow pointer-events-none"></div>
-      <div className="absolute bottom-[-20%] right-[20%] w-[500px] h-[500px] bg-brand-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-[-20%] left-[10%] sm:left-[20%] w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-brand-primary/20 rounded-full blur-[80px] sm:blur-[120px] animate-pulse-slow pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] right-[10%] sm:right-[20%] w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-brand-accent/10 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         
-        {/* 2025 Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-10 animate-fade-in-up hover:bg-white/10 transition-all cursor-default group">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl mb-8 sm:mb-10 animate-fade-in-up hover:bg-white/10 transition-all cursor-default group">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-success opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-success"></span>
           </span>
-          <span className="text-[10px] font-mono font-medium tracking-widest uppercase text-gray-300 group-hover:text-white transition-colors">
-            Экосистема RevShare <span className="text-brand-gray">|</span> v2.5
+          <span className="text-[9px] sm:text-[10px] font-mono font-medium tracking-widest uppercase text-gray-300 group-hover:text-white transition-colors">
+            Экосистема RevShare <span className="text-brand-gray hidden sm:inline">|</span> <span className="hidden sm:inline">v2.5</span>
           </span>
         </div>
 
-        {/* Main Title with Fluid Typography */}
-        <h1 className="font-display text-6xl sm:text-7xl md:text-9xl font-bold tracking-tighter leading-[0.9] mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+        <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter leading-[0.9] mb-6 sm:mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">
             Архитектор
           </span>
@@ -158,18 +155,16 @@ export const Hero: React.FC = () => {
           </span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed animate-fade-in-up font-light tracking-wide" style={{ animationDelay: '0.2s' }}>
-          Получите доступ к закрытому портфелю AI-стартапов. <br/>
+        <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mb-10 sm:mb-12 leading-relaxed animate-fade-in-up font-light tracking-wide px-4" style={{ animationDelay: '0.2s' }}>
+          Получите доступ к закрытому портфелю AI-стартапов. <br className="hidden sm:block"/>
           Управляйте стратегией. <span className="text-white font-medium">Владейте результатом.</span>
         </p>
 
-        {/* Action Area */}
-        <div className="flex flex-col sm:flex-row items-center gap-6 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 animate-fade-in-up w-full sm:w-auto px-4 sm:px-0" style={{ animationDelay: '0.3s' }}>
           <a
             href={HERO_DATA.ctaLink}
             onClick={handleCtaClick}
-            className="group relative inline-flex items-center justify-center min-w-[200px] px-8 py-4 bg-white text-black rounded-full overflow-hidden transition-transform active:scale-95"
+            className="group relative inline-flex items-center justify-center w-full sm:w-auto sm:min-w-[200px] px-8 py-4 bg-white text-black rounded-full overflow-hidden transition-transform active:scale-95"
           >
             <span className="relative z-10 font-bold text-base tracking-wide flex items-center gap-2 group-hover:gap-4 transition-all">
               {HERO_DATA.cta}
@@ -183,10 +178,9 @@ export const Hero: React.FC = () => {
           </a>
         </div>
 
-        {/* Trust Indicator */}
-        <div className="mt-20 pt-10 border-t border-white/5 w-full max-w-3xl flex justify-center gap-12 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+        <div className="mt-16 sm:mt-20 pt-8 sm:pt-10 border-t border-white/5 w-full max-w-3xl flex flex-wrap justify-center gap-6 sm:gap-12 opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
            {['ACEL', 'Y Combinator', '500 Startups'].map((txt, i) => (
-               <span key={i} className="font-display font-bold text-xl">{txt}</span>
+               <span key={i} className="font-display font-bold text-base sm:text-xl">{txt}</span>
            ))}
         </div>
       </div>
