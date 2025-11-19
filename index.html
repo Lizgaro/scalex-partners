@@ -71,19 +71,28 @@
       }
     </script>
     <style>
-      /* 2025 Premium Scrollbar */
       ::-webkit-scrollbar {
         width: 0px;
-        background: transparent; /* Hide scrollbar for immersive feel */
+        background: transparent;
+      }
+      
+      * {
+        -webkit-tap-highlight-color: rgba(99, 102, 241, 0.1);
+      }
+      
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
       }
       
       body {
         background-color: #030303;
         color: #ffffff;
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      /* Grain Texture Overlay */
       .bg-noise {
         position: fixed;
         top: 0;
@@ -107,9 +116,33 @@
         text-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
       }
 
-      /* Smooth scrolling */
-      html {
-        scroll-behavior: smooth;
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .bg-noise {
+          opacity: 0.02;
+        }
+      }
+
+      @media (max-width: 768px) and (orientation: landscape) {
+        section {
+          min-height: auto !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
       }
     </style>
   <script type="importmap">

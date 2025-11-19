@@ -39,7 +39,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-brand-black selection:bg-brand-primary selection:text-white">
+    <main className="min-h-screen bg-brand-black selection:bg-brand-primary selection:text-white overflow-x-hidden">
       <Navbar />
       <Hero />
       <PainPoints />

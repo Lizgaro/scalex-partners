@@ -1,0 +1,39 @@
+@media (hover: hover) and (pointer: fine) {
+  .hover\:scale-110:hover {
+    transform: scale(1.1);
+  }
+  
+  .hover\:-translate-y-2:hover {
+    transform: translateY(-0.5rem);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-110:hover,
+  .hover\:-translate-y-2:hover {
+    transform: none;
+  }
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
